@@ -6,19 +6,19 @@
   */
 #include "Entity.h"
 
-Entity::Entity(Properties<double> prop, std::string imgLocation) : {
+Entity::Entity(Properties prop, std::string imgLocation) {
     properties = prop;
     texture.loadFromFile(imgLocation);
     sprite = sf::Sprite(texture, prop.sheet_pos);
     sprite.setScale((float)(properties.size.width/texture.getSize().x), (float)(properties.size.height/texture.getSize().y));
 }
 
-Entity::Entity(Viewport::Dimension<double> size, sf::Rect sheet_pos, Viewport::Point<double> pos, std::string imgLocation) {
+Entity::Entity(Viewport::Dimension<double> size, sf::IntRect sheet_pos, Viewport::Point<double> pos, std::string imgLocation) {
     Entity(Properties{size, pos, sheet_pos}, imgLocation);
 }
 
 Entity::Entity(double width, double height, double sheet_x, double sheet_y, double draw_x, double draw_y, std::string imgLocation) {
-    Entity(Viewport::Dimension<double>{width, height}, sf::Rect(sheet_x, sheet_y, width, height), Viewport::Point<double>{draw_x, draw_y}, imgLocation);
+    Entity(Viewport::Dimension<double>{width, height}, sf::IntRect(sheet_x, sheet_y, width, height), Viewport::Point<double>{draw_x, draw_y}, imgLocation);
 }
 
 void Entity::setSize(double width, double height) {

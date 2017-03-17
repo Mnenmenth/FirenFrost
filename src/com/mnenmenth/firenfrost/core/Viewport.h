@@ -12,13 +12,13 @@ class Viewport {
 
 public:
     template <class T>
-    static struct Point {
+    struct Point {
         T x;
         T y;
     };
 
     template <class T>
-    static struct Dimension {
+    struct Dimension {
         T width;
         T height;
     };

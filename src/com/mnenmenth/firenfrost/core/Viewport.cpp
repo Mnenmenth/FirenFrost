@@ -34,7 +34,7 @@ void Viewport::setHeight(int height) {
     size.height = height;
 }
 
-Dimension<int> Viewport::getSize() {
+Viewport::Dimension<int> Viewport::getSize() {
     return size;
 }
 
@@ -44,20 +44,20 @@ void Viewport::setAspectRatio(double ratio) {
 }
 double Viewport::getAspectRatio() { return aspectRatio; }
 
-Point<double> Viewport::pixelToCoord(Point<int> pixel) {
+Viewport::Point<double> Viewport::pixelToCoord(Point<int> pixel) {
     Point<double> coord{};
-    if (pixel.x != 0 && pixel.x != nullptr)
+    if (pixel.x != 0)
         coord.x = (pixel.x / size.width) * units.width;
-    if (pixel.y != 0 && pixel.y != nullptr)
+    if (pixel.y != 0)
         coord.y = (pixel.y/size.height)*units.height;
     return coord;
 }
 
-Point<int> Viewport::coordToPixel(Point<double> coord) {
+Viewport::Point<int> Viewport::coordToPixel(Point<double> coord) {
     Point<int> pixel{};
-    if (coord.x != 0 && coord.x != nullptr)
+    if (coord.x != 0)
         pixel.x = (int)ceil((coord.x*size.width)/units.width);
-    if (coord.y != 0 && coord.y != nullptr)
+    if (coord.y != 0)
         pixel.y = (int)ceil((coord.y*size.height)/units.height);
     return pixel;
 }

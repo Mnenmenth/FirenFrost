@@ -15,14 +15,14 @@
 class Entity {
 
 public:
-    static struct Properties {
+    struct Properties {
         Viewport::Dimension<double> size;
         Viewport::Point<double> position;
-        sf::Rect sheet_pos;
+        sf::IntRect sheet_pos;
     };
 
     void setSize(double width, double height);
-    void setSize(Viewport::Dimension size);
+    void setSize(Viewport::Dimension<double> size);
     double getWidth();
     void setWidth(double);
     double getHeight();
@@ -37,7 +37,7 @@ public:
     Properties getProperties();
 protected:
     Entity(Properties, std::string imgLocation);
-    Entity(Viewport::Dimension<double> size, sf::Rect sheet_pos, Viewport::Point<double> draw_pos, std::string imgLocation);
+    Entity(Viewport::Dimension<double> size, sf::IntRect sheet_pos, Viewport::Point<double> draw_pos, std::string imgLocation);
     Entity(double width, double height, double sheet_x, double sheet_y, double draw_x, double draw_y, std::string imgLocation);
     ~Entity();
     sf::Sprite sprite;
