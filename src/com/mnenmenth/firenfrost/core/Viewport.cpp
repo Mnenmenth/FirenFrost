@@ -7,6 +7,10 @@
 #include <cmath>
 #include "Viewport.h"
 
+double Viewport::aspectRatio = 0;
+Viewport::Dimension<int> Viewport::units = Viewport::Dimension<int>{0,0};
+Viewport::Dimension<int> Viewport::size = Viewport::Dimension<int>{0,0};
+
 void Viewport::init(Dimension<int> size, double ratio, int xUnits) {
     units.width = xUnits;
     units.height = (int)ceil(xUnits/ratio);
