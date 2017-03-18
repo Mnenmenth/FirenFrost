@@ -57,11 +57,29 @@ Viewport::Point<double> Viewport::pixelToCoord(Point<int> pixel) {
     return coord;
 }
 
+Viewport::Dimension<double> Viewport::pixelToCoord(Dimension<int> pixel) {
+    Dimension<double> coord{};
+    if (pixel.width != 0)
+        coord.width = (pixel.width / size.width) * units.width;
+    if (pixel.height != 0)
+        coord.height = (pixel.height/size.height)*units.height;
+    return coord;
+}
+
 Viewport::Point<int> Viewport::coordToPixel(Point<double> coord) {
     Point<int> pixel{};
     if (coord.x != 0)
         pixel.x = (int)ceil((coord.x*size.width)/units.width);
     if (coord.y != 0)
         pixel.y = (int)ceil((coord.y*size.height)/units.height);
+    return pixel;
+}
+
+Viewport::Dimension<int> Viewport::coordToPixel(Dimension<double> coord) {
+    Dimension<int> pixel{};
+    if (coord.width != 0)
+        pixel.width = (int)ceil((coord.width*size.width)/units.width);
+    if (coord.height != 0)
+        pixel.height = (int)ceil((coord.height*size.height)/units.height);
     return pixel;
 }

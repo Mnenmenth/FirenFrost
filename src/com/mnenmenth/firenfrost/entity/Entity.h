@@ -18,7 +18,7 @@ public:
     struct Properties {
         Viewport::Dimension<double> size;
         Viewport::Point<double> position;
-        sf::IntRect sheet_pos;
+        sf::IntRect sheet_rect;
     };
 
     void setSize(double width, double height);
@@ -36,9 +36,12 @@ public:
     void setProperties(const Properties);
     Properties getProperties();
 protected:
+    /*
+     * Doubles are coordinates, ints are pixels
+     */
     Entity(Properties, std::string imgLocation);
-    Entity(Viewport::Dimension<double> size, sf::IntRect sheet_pos, Viewport::Point<double> draw_pos, std::string imgLocation);
-    Entity(double width, double height, double sheet_x, double sheet_y, double draw_x, double draw_y, std::string imgLocation);
+    Entity(Viewport::Dimension<double> size, sf::IntRect sheet_rect, Viewport::Point<double> draw_pos, std::string imgLocation);
+    Entity(double width, double height, int sheet_width, int sheet_height, int sheet_x, int sheet_y, double draw_x, double draw_y, std::string imgLocation);
     ~Entity();
     sf::Sprite sprite;
     sf::Texture texture;

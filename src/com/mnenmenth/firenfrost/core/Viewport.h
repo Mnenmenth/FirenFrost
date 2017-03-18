@@ -32,7 +32,9 @@ public:
     static void setAspectRatio(double);
     static double getAspectRatio();
     static Point<double> pixelToCoord(Point<int>);
+    static Dimension<double> pixelToCoord(Dimension<int>);
     static Point<int> coordToPixel(Point<double>);
+    static Dimension<int> coordToPixel(Dimension<double>);
 private:
     static double aspectRatio;
     static Dimension<int> units;
