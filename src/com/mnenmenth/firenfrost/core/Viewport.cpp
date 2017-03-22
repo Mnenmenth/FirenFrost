@@ -66,6 +66,12 @@ Viewport::Dimension<double> Viewport::pixelToCoord(Dimension<int> pixel) {
     return coord;
 }
 
+sf::Rect<double> Viewport::pixelToCoord(sf::IntRect pixel) {
+    Point<int> corners = coordToPixel(Point<double>{pixel.top, pixel.left});
+    Dimension<int> size = coordToPixel(Dimension<double>{pixel.width, pixel.height});
+    return sf::Rect<double>(corners.x, corners.y, size.width, size.height);
+}
+
 Viewport::Point<int> Viewport::coordToPixel(Point<double> coord) {
     Point<int> pixel{};
     if (coord.x != 0)

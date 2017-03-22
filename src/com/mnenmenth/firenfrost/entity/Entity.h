@@ -10,6 +10,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <string>
+#include <map>
 #include "../core/Viewport.h"
 
 class Entity {
@@ -35,6 +36,11 @@ public:
     Viewport::Point<double> getPos();
     void setProperties(const Properties);
     Properties getProperties();
+
+    void addHitbox(std::string, sf::Rect<double>);
+    void removeHitbox(std::string);
+    sf::Rect<double> getHitbox(std::string);
+    sf::Rect<double>& getHitboxRef(std::string);
 protected:
     /*
      * Doubles are coordinates, ints are pixels
@@ -46,6 +52,8 @@ protected:
     sf::Sprite sprite;
     sf::Texture texture;
     Properties properties;
+    sf::Rect<double> defaultHitbox;
+    std::map<std::string, sf::Rect<double>> hitboxes;
 };
 
 

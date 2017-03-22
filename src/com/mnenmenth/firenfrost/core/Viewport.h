@@ -7,20 +7,27 @@
 #ifndef FIRENFROST_COORDSYS_H
 #define FIRENFROST_COORDSYS_H
 
+#include <SFML/Graphics/Rect.hpp>
 
 class Viewport {
 
 public:
+    //        Point<double>::hi();
+    //        Point<int>::hi();
     template <class T>
     struct Point {
         T x;
         T y;
+        Point<int> toPixel() { return Viewport::coordToPixel(*this); }
+        Point<double> toCoord() { return Viewport::pixelToCoord(*this); }
     };
 
     template <class T>
     struct Dimension {
         T width;
         T height;
+        Dimension<int> toPixel() { return Viewport::coordToPixel(*this); }
+        Dimension<double> toCoord() { return Viewport::pixelToCoord(*this); }
     };
     static void init(Dimension<int>, double ratio, int xUnits);
     static void init(int width, int height, double ratio, int xUnits);
@@ -33,8 +40,10 @@ public:
     static double getAspectRatio();
     static Point<double> pixelToCoord(Point<int>);
     static Dimension<double> pixelToCoord(Dimension<int>);
+    static sf::Rect<double> pixelToCoord(sf::IntRect);
     static Point<int> coordToPixel(Point<double>);
     static Dimension<int> coordToPixel(Dimension<double>);
+    static sf::IntRect coordToPixel(sf::Rect<double>);
 private:
     static double aspectRatio;
     static Dimension<int> units;

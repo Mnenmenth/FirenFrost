@@ -7,10 +7,10 @@
 #include "Entity.h"
 
 Entity::Entity(Properties prop, std::string imgLocation) {
-    properties = prop;
+    setProperties(prop);
     texture.loadFromFile(imgLocation);
-    sprite = sf::Sprite(texture, prop.sheet_rect);
-    sprite.setScale((float)(Viewport::coordToPixel(prop.size).width/prop.sheet_rect.width), (float)(Viewport::coordToPixel(prop.size).height/prop.sheet_rect.height));
+    sprite.setTexture(texture);
+
 }
 
 Entity::Entity(Viewport::Dimension<double> size, sf::IntRect sheet_rect, Viewport::Point<double> pos, std::string imgLocation) {
@@ -27,7 +27,7 @@ void Entity::setSize(double width, double height) {
 
 void Entity::setSize(Viewport::Dimension<double> size) {
     properties.size = size;
-    sprite.setScale((float)(Viewport::coordToPixel(properties.size).width/properties.sheet_rect.width), (float)(Viewport::coordToPixel(properties.size).height/properties.sheet_rect.height));
+    sprite.setScale((float)(properties.size.toPixel().width/properties.sheet_rect.width), (float)(properties.size.toPixel().height/properties.sheet_rect.height));
 }
 
 double Entity::getWidth() {
@@ -36,7 +36,7 @@ double Entity::getWidth() {
 
 void Entity::setWidth(double width) {
     properties.size.width = width;
-    sprite.setScale((float)(Viewport::coordToPixel(properties.size).width/properties.sheet_rect.width), 1.0f);
+    sprite.setScale((float)(properties.size.toPixel().width/properties.sheet_rect.width), 1.0f);
 }
 
 double Entity::getHeight() {
@@ -45,7 +45,7 @@ double Entity::getHeight() {
 
 void Entity::setHeight(double height) {
     properties.size.height = height;
-    sprite.setScale(1.0f, (float)(Viewport::coordToPixel(properties.size).height/properties.sheet_rect.height));
+    sprite.setScale(1.0f, (float)(properties.size.toPixel().height/properties.sheet_rect.height));
 }
 
 Viewport::Dimension<double> Entity::getSize() {
@@ -54,19 +54,19 @@ Viewport::Dimension<double> Entity::getSize() {
 
 void Entity::setPos(Viewport::Point<double> pos) {
     properties.position = pos;
+    sprite.setPosition((float)properties.position.x, (float)properties.position.y);
 }
 
 void Entity::setPos(double x, double y) {
-    properties.position.x = x;
-    properties.position.y = y;
+    setPos(Viewport::Point<double>{x,y});
 }
 
 void Entity::setX(double x) {
-    properties.position.x = x;
+    setPos(x, properties.position.y);
 }
 
 void Entity::setY(double y) {
-    properties.position.y = y;
+    setPos(properties.position.x, y);
 }
 
 Viewport::Point<double> Entity::getPos() {
@@ -75,11 +75,15 @@ Viewport::Point<double> Entity::getPos() {
 
 void Entity::setProperties(Entity::Properties prop) {
     properties = prop;
+    sprite.setTextureRect(properties.sheet_rect);
+    sprite.setScale((float)(properties.size.toPixel().width/properties.sheet_rect.width), (float)(properties.size.toPixel().height/properties.sheet_rect.height));
 }
 
 Entity::Properties Entity::getProperties() {
     return properties;
 }
+
+
 
 Entity::~Entity() {
 
