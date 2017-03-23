@@ -5,57 +5,15 @@
   * https://github.com/Mnenmenth
   */
 #include "Entity.h"
-#include <stdexcept>
 
-Entity::Entity(Properties prop, std::string imgLocation) {
-    setProperties(prop);
+Entity::Entity(std::string imgLocation) {
     texture.loadFromFile(imgLocation);
     sprite.setTexture(texture);
-
-}
-
-Entity::Entity(Viewport::Dimension<double> size, sf::IntRect sheet_rect, Viewport::Point<double> pos, std::string imgLocation) {
-    Entity(Properties{size, pos, sheet_rect}, imgLocation);
-}
-
-Entity::Entity(double width, double height, int sheet_width, int sheet_height, int sheet_x, int sheet_y, double draw_x, double draw_y, std::string imgLocation) {
-    Entity(Viewport::Dimension<double>{width, height}, sf::IntRect(sheet_x, sheet_y, sheet_width, sheet_height), Viewport::Point<double>{draw_x, draw_y}, imgLocation);
-}
-
-void Entity::setSize(double width, double height) {
-    setSize(Viewport::Dimension<double>{width, height});
-}
-
-void Entity::setSize(Viewport::Dimension<double> size) {
-    properties.size = size;
-    sprite.setScale((float)(properties.size.toPixel().width/properties.sheet_rect.width), (float)(properties.size.toPixel().height/properties.sheet_rect.height));
-}
-
-double Entity::getWidth() {
-    return properties.size.width;
-}
-
-void Entity::setWidth(double width) {
-    properties.size.width = width;
-    sprite.setScale((float)(properties.size.toPixel().width/properties.sheet_rect.width), 1.0f);
-}
-
-double Entity::getHeight() {
-    return properties.size.height;
-}
-
-void Entity::setHeight(double height) {
-    properties.size.height = height;
-    sprite.setScale(1.0f, (float)(properties.size.toPixel().height/properties.sheet_rect.height));
-}
-
-Viewport::Dimension<double> Entity::getSize() {
-    return properties.size;
 }
 
 void Entity::setPos(Viewport::Point<double> pos) {
-    properties.position = pos;
-    sprite.setPosition((float)properties.position.x, (float)properties.position.y);
+    position = pos;
+    sprite.setPosition((float)position.x, (float)position.y);
 }
 
 void Entity::setPos(double x, double y) {
@@ -63,47 +21,85 @@ void Entity::setPos(double x, double y) {
 }
 
 void Entity::setX(double x) {
-    setPos(x, properties.position.y);
+    setPos(x, position.y);
 }
 
 void Entity::setY(double y) {
-    setPos(properties.position.x, y);
+    setPos(position.x, y);
 }
 
 Viewport::Point<double> Entity::getPos() {
-    return properties.position;
+    return position;
 }
 
-void Entity::setProperties(Entity::Properties prop) {
-    properties = prop;
-    sprite.setTextureRect(properties.sheet_rect);
-    sprite.setScale((float)(properties.size.toPixel().width/properties.sheet_rect.width), (float)(properties.size.toPixel().height/properties.sheet_rect.height));
+void Entity::addAnimation(AnimFrame::AnimType type) {
+    animations[type] = std::vector<AnimFrame>();
 }
 
-Entity::Properties Entity::getProperties() {
-    return properties;
+void Entity::addAnimation(AnimFrame::AnimType type, std::vector<AnimFrame> frames) {
+    animations[type] = frames;
 }
 
-void Entity::addHitbox(std::string name, sf::Rect<double> hitbox) {
-    hitboxes[name] = hitbox;
+void Entity::removeAnimation(AnimFrame::AnimType type) {
+    auto entry = animations.find(type);
+    if(entry != animations.end())
+        animations.erase(entry);
+    else
+        throw std::invalid_argument("Animation does not exist");
 }
 
-void Entity::removeHitbox(std::string name) {
-    auto entry = hitboxes.find(name);
-    if(entry != hitboxes.end()) {
-        hitboxes.erase(entry);
+void Entity::addFrame(AnimFrame::AnimType type, AnimFrame frame) {
+    animations[type].push_back(frame);
+}
+
+void Entity::addFrames(AnimFrame::AnimType type, std::vector<AnimFrame> frames) {
+    animations[type] = frames;
+}
+
+std::vector<AnimFrame>& Entity::getAnimation(AnimFrame::AnimType type) {
+    if (animations.find(type) != animations.end())
+        return animations[type];
+    else
+        throw std::invalid_argument("Animation does not exist");
+}
+
+AnimFrame& Entity::getFrame(AnimFrame::AnimType type, int frameNum) {
+    if (animations.find(type) != animations.end())
+        if(animations[type].size()-1 < frameNum)
+            return animations[type][frameNum];
+        else
+            throw std::invalid_argument("frameNum is larger than the vector size");
+    else
+        throw std::invalid_argument("Animation does not exist");
+}
+
+void Entity::setCurrentAnimtion(AnimFrame::AnimType type) {
+    currentAnimation = type;
+    currentAnimIndex= 0;
+}
+
+AnimFrame::AnimType Entity::getCurrentAnimation() {
+    return currentAnimation;
+}
+
+void Entity::nextFrame() {
+    // if elapsed time >= frame.time then switch frame to next then reset clock
+
+    if(sprite.getTextureRect() != animations[AnimFrame::AnimType::none][0].getSheet_frameBounds()
+       || animations.begin()->first != AnimFrame::AnimType::none)
+        sprite.setTextureRect(animations[AnimFrame::AnimType::none][0].getSheet_frameBounds());
+    else {
+
+        if(timer.getElapsedTime().asSeconds() >= currentFrame.getFrameTime()) {
+            auto& animation = getAnimation(currentAnimation);
+            auto& frame = getFrame(currentAnimation, currentAnimIndex);
+            currentFrame = frame;
+            sprite.setTextureRect(frame.getSheet_frameBounds());
+            if(currentAnimIndex-1 >= animation.size())
+                currentAnimIndex = 0;
+            else 
+                currentAnimIndex++;
+            timer.restart();
+        }
     }
 }
-
-sf::Rect<double> Entity::getHitbox(std::string name) {
-    auto entry = hitboxes.find(name);
-    if (entry != hitboxes.end())
-        return hitboxes[name];
-    else
-        throw std::invalid_argument(name + " is not in the hitbox list");
-}
-
-Entity::~Entity() {
-
-}
-

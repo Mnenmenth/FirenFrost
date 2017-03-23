@@ -18,8 +18,8 @@ set(CORE
 set(ENTITY
         ${ENTITY_DIR}/Entity.h
         ${ENTITY_DIR}/Entity.cpp
-        ${ENTITY_DIR}/AnimatedEntity.h
-        ${ENTITY_DIR}/AnimatedEntity.cpp
+        ${ENTITY_DIR}/AnimFrame.h
+        ${ENTITY_DIR}/AnimFrame.cpp
         )
 
 set(SOURCE_FILES ${CORE} ${ENTITY})
