@@ -5,6 +5,7 @@
   * https://github.com/Mnenmenth
   */
 #include "Entity.h"
+#include <stdexcept>
 
 Entity::Entity(Properties prop, std::string imgLocation) {
     setProperties(prop);
@@ -83,7 +84,24 @@ Entity::Properties Entity::getProperties() {
     return properties;
 }
 
+void Entity::addHitbox(std::string name, sf::Rect<double> hitbox) {
+    hitboxes[name] = hitbox;
+}
 
+void Entity::removeHitbox(std::string name) {
+    auto entry = hitboxes.find(name);
+    if(entry != hitboxes.end()) {
+        hitboxes.erase(entry);
+    }
+}
+
+sf::Rect<double> Entity::getHitbox(std::string name) {
+    auto entry = hitboxes.find(name);
+    if (entry != hitboxes.end())
+        return hitboxes[name];
+    else
+        throw std::invalid_argument(name + " is not in the hitbox list");
+}
 
 Entity::~Entity() {
 

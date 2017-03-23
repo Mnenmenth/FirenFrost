@@ -40,7 +40,6 @@ public:
     void addHitbox(std::string, sf::Rect<double>);
     void removeHitbox(std::string);
     sf::Rect<double> getHitbox(std::string);
-    sf::Rect<double>& getHitboxRef(std::string);
 protected:
     /*
      * Doubles are coordinates, ints are pixels
