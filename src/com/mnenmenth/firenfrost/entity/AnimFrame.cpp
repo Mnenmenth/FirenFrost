@@ -67,7 +67,7 @@ void AnimFrame::setRelativeY(double y) {
     relativePos.y = y;
 }
 
-Viewport::Point AnimFrame::getRelativePos() {
+Viewport::Point<double> AnimFrame::getRelativePos() {
     return relativePos;
 }
 
@@ -106,8 +106,3 @@ sf::Rect<double>& AnimFrame::getHitbox(std::string name) {
     else
         throw std::invalid_argument(name + " is not a hitbox");
 }
-
-AnimFrame::~AnimFrame() {
-
-}
-

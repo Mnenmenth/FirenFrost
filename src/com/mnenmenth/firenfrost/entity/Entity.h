@@ -36,7 +36,7 @@ public:
     void setCurrentAnimtion(AnimFrame::AnimType);
     AnimFrame::AnimType getCurrentAnimation();
 
-    void nextFrame();
+    void animCycle();
 
 protected:
     sf::Sprite sprite;

@@ -14,8 +14,10 @@
 #include "../core/Viewport.h"
 
 class AnimFrame {
-
 public:
+
+    AnimFrame(Viewport::Dimension<double> size, sf::IntRect sheet_frameBounds);
+    AnimFrame(double width, double height, int sheet_frameWidth, int sheet_frameHeight, int sheet_frameTop, int sheet_frameLeft);
 
     enum AnimType { none, idle, movement, attack };
 
@@ -45,13 +47,6 @@ public:
     void removeHitbox(std::string);
     sf::Rect<double>& getHitbox(std::string);
 private:
-    /*
-     * Doubles are coordinates, ints are pixels
-     */
-    AnimFrame(Viewport::Dimension<double> size, sf::IntRect sheet_frameBounds);
-    AnimFrame(double width, double height, int sheet_frameWidth, int sheet_frameHeight, int sheet_frameTop, int sheet_frameLeft);
-    ~AnimFrame();
-
     float frameTime;
     sf::IntRect sheet_frameBounds;
     Viewport::Dimension<double> size;

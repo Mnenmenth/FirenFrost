@@ -6,7 +6,7 @@
   */
 #include "Entity.h"
 
-Entity::Entity(std::string imgLocation) {
+Entity::Entity(std::string imgLocation) : currentFrame(0,0,0,0,0,0) {
     texture.loadFromFile(imgLocation);
     sprite.setTexture(texture);
 }
@@ -82,24 +82,23 @@ AnimFrame::AnimType Entity::getCurrentAnimation() {
     return currentAnimation;
 }
 
-void Entity::nextFrame() {
+void Entity::animCycle() {
     // if elapsed time >= frame.time then switch frame to next then reset clock
 
-    if(sprite.getTextureRect() != animations[AnimFrame::AnimType::none][0].getSheet_frameBounds()
-       || animations.begin()->first != AnimFrame::AnimType::none)
-        sprite.setTextureRect(animations[AnimFrame::AnimType::none][0].getSheet_frameBounds());
-    else {
-
-        if(timer.getElapsedTime().asSeconds() >= currentFrame.getFrameTime()) {
-            auto& animation = getAnimation(currentAnimation);
-            auto& frame = getFrame(currentAnimation, currentAnimIndex);
-            currentFrame = frame;
-            sprite.setTextureRect(frame.getSheet_frameBounds());
-            if(currentAnimIndex-1 >= animation.size())
-                currentAnimIndex = 0;
-            else 
-                currentAnimIndex++;
-            timer.restart();
-        }
-    }
+    if(animations.size() >= 1)
+        if (animations.begin()->first == AnimFrame::AnimType::none)
+            if(sprite.getTextureRect() != animations[AnimFrame::AnimType::none][0].getSheet_frameBounds())
+                sprite.setTextureRect(animations[AnimFrame::AnimType::none][0].getSheet_frameBounds());
+        else
+            if(timer.getElapsedTime().asSeconds() >= currentFrame.getFrameTime()) {
+                auto& animation = getAnimation(currentAnimation);
+                auto& frame = getFrame(currentAnimation, currentAnimIndex);
+                currentFrame = frame;
+                sprite.setTextureRect(frame.getSheet_frameBounds());
+                if(currentAnimIndex-1 >= animation.size())
+                    currentAnimIndex = 0;
+                else
+                    currentAnimIndex++;
+                timer.restart();
+            }
 }
