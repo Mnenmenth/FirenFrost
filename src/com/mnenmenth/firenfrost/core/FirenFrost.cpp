@@ -1,3 +1,5 @@
+#include "../render/Render.h"
+
 /**
   * Created by Mnenmenth Alkaborin
   * Please refer to LICENSE file if included
@@ -6,6 +8,10 @@
   */
 
 int main(int argc, char** argv) {
+
+    Render render("Test", 800, 600);
+
+    render.renderLoop();
 
     return 0;
 }

@@ -71,6 +71,14 @@ Viewport::Point<double> AnimFrame::getRelativePos() {
     return relativePos;
 }
 
+void AnimFrame::setRelativeRot(double rot) {
+    relativeRot = rot;
+}
+
+double AnimFrame::getRelativeRot() {
+    return relativeRot;
+}
+
 void AnimFrame::setScale(float width, float height) {
     scale = Viewport::Dimension<float>{width, height};
 }

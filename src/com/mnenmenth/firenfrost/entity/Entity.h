@@ -25,6 +25,9 @@ public:
     void setY(double);
     Viewport::Point<double> getPos();
 
+    void setRotation(double);
+    double getRotation();
+
     void addAnimation(AnimFrame::AnimType, std::vector<AnimFrame>);
     void addAnimation(AnimFrame::AnimType);
     void removeAnimation(AnimFrame::AnimType);
@@ -38,11 +41,14 @@ public:
 
     void animCycle();
 
+    sf::Sprite& getSprite();
+
 protected:
     sf::Sprite sprite;
     sf::Texture texture;
     sf::Clock timer;
     Viewport::Point<double> position;
+    double rotation;
     AnimFrame::AnimType currentAnimation;
     AnimFrame currentFrame;
     int currentAnimIndex;

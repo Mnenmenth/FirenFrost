@@ -12,8 +12,6 @@
 class Viewport {
 
 public:
-    //        Point<double>::hi();
-    //        Point<int>::hi();
     template <class T>
     struct Point {
         T x;

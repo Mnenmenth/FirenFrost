@@ -40,6 +40,9 @@ public:
     void setRelativeY(double);
     Viewport::Point<double> getRelativePos();
 
+    void setRelativeRot(double);
+    double getRelativeRot();
+
     void setSheet_frameBounds(sf::IntRect);
     sf::IntRect getSheet_frameBounds();
 
@@ -51,6 +54,7 @@ private:
     sf::IntRect sheet_frameBounds;
     Viewport::Dimension<double> size;
     Viewport::Point<double> relativePos;
+    double relativeRot;
     Viewport::Dimension<float> scale;
     sf::Rect<double> defaultHitbox;
     //Hitbox name matters: Ex, body will receive damage while weapon will deal damage

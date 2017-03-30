@@ -6,7 +6,16 @@
   */
 #include "Entity.h"
 
-Entity::Entity(std::string imgLocation) : currentFrame(0,0,0,0,0,0) {
+Entity::Entity(std::string imgLocation)
+        : sprite(sf::Sprite()),
+          texture(sf::Texture()),
+          timer(sf::Clock()),
+          position(Viewport::Point<double>{0,0}),
+          rotation(0),
+          currentFrame(0,0,0,0,0,0),
+          currentAnimation(AnimFrame::AnimType::none),
+          currentAnimIndex(0),
+          animations() {
     texture.loadFromFile(imgLocation);
     sprite.setTexture(texture);
 }
@@ -30,6 +39,14 @@ void Entity::setY(double y) {
 
 Viewport::Point<double> Entity::getPos() {
     return position;
+}
+
+void Entity::setRotation(double rot) {
+    rotation = rot;
+}
+
+double Entity::getRotation() {
+    return rotation;
 }
 
 void Entity::addAnimation(AnimFrame::AnimType type) {
@@ -83,7 +100,6 @@ AnimFrame::AnimType Entity::getCurrentAnimation() {
 }
 
 void Entity::animCycle() {
-    // if elapsed time >= frame.time then switch frame to next then reset clock
 
     if(animations.size() >= 1)
         if (animations.begin()->first == AnimFrame::AnimType::none)
@@ -101,4 +117,8 @@ void Entity::animCycle() {
                     currentAnimIndex++;
                 timer.restart();
             }
+}
+
+sf::Sprite& Entity::getSprite() {
+    return sprite;
 }

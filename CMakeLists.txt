@@ -9,6 +9,7 @@ set(SOURCE_DIR src/com/mnenmenth/firenfrost)
 
 set(CORE_DIR ${SOURCE_DIR}/core)
 set(ENTITY_DIR ${SOURCE_DIR}/entity)
+set(RENDER_DIR ${SOURCE_DIR}/render)
 
 set(CORE
         ${CORE_DIR}/FirenFrost.cpp
@@ -22,7 +23,12 @@ set(ENTITY
         ${ENTITY_DIR}/AnimFrame.cpp
         )
 
-set(SOURCE_FILES ${CORE} ${ENTITY})
+set(RENDER
+        ${RENDER_DIR}/Render.h
+        ${RENDER_DIR}/Render.cpp
+        )
+
+set(SOURCE_FILES ${CORE} ${ENTITY} ${RENDER})
 
 LIST(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake_modules)
 find_package(SFML REQUIRED system window graphics audio)
