@@ -21,6 +21,8 @@ set(ENTITY
         ${ENTITY_DIR}/Entity.cpp
         ${ENTITY_DIR}/AnimFrame.h
         ${ENTITY_DIR}/AnimFrame.cpp
+        ${ENTITY_DIR}/Hitbox.h
+        ${ENTITY_DIR}/Hitbox.cpp
         )
 
 set(RENDER
