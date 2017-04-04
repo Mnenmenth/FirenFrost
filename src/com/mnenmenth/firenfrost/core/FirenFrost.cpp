@@ -9,6 +9,7 @@
 
 int main(int argc, char** argv) {
 
+
     Render render("Test", 800, 600);
 
     render.renderLoop();

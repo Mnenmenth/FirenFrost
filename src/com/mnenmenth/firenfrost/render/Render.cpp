@@ -6,9 +6,12 @@
   */
 #include "Render.h"
 #include <iostream>
+#include <math.h>
 
 Render::Render(std::string windowTitle, Viewport::Dimension<unsigned int> windowSize) :
-        window(sf::VideoMode(windowSize.width, windowSize.height), windowTitle) {
+        window(sf::VideoMode(windowSize.width, windowSize.height), windowTitle),
+        mainView(sf::View()) {
+    mainView.setSize(windowSize.width, windowSize.height);
 }
 
 Render::Render(std::string windowTitle, unsigned int windowWidth, unsigned int windowHeight) :
@@ -26,11 +29,14 @@ void Render::renderLoop() {
             }
         }
         window.clear(sf::Color::Black);
-
         if(!renderList.empty())
             for (auto &pair : renderList) {
-                pair.second.animCycle();
-                window.draw(pair.second.getSprite());
+                if(Viewport::coordToPixel(pair.second.getDefaultHitbox())
+                        .intersects(sf::IntRect(0, 0, (int)floorf(mainView.getSize().x),
+                                                (int)floorf(mainView.getSize().y)))) {
+                    pair.second.animCycle();
+                    window.draw(pair.second.getSprite());
+                }
             }
 
         window.display();
@@ -38,20 +44,25 @@ void Render::renderLoop() {
 
 }
 
-void Render::setWindowSize(Viewport::Dimension<unsigned int> size) {
-    window.setSize(sf::Vector2u(size.width, size.height));
+void Render::setWindowSize(const sf::Vector2u& size) {
+    window.setSize(size);
+    mainView.setSize(sf::Vector2f(size.x, size.y));
+}
+
+void Render::setWindowSize(const Viewport::Dimension<unsigned int>& size) {
+    setWindowSize(sf::Vector2u(size.width, size.height));
 }
 
 void Render::setWindowSize(unsigned int width, unsigned int height) {
-    window.setSize(sf::Vector2u(width, height));
+    setWindowSize(sf::Vector2u(width, height));
 }
 
 void Render::setWindowWidth(unsigned int width) {
-    window.setSize(sf::Vector2u(width, window.getSize().y));
+    setWindowSize(sf::Vector2u(width, getWindowSize().height));
 }
 
 void Render::setWindowHeight(unsigned int height) {
-    window.setSize(sf::Vector2u(window.getSize().y, height));
+    setWindowSize(getWindowSize().height, height);
 }
 
 Viewport::Dimension<unsigned int> Render::getWindowSize() {
@@ -60,4 +71,16 @@ Viewport::Dimension<unsigned int> Render::getWindowSize() {
 
 sf::RenderWindow& Render::getWindow() {
     return window;
+}
+
+void Render::addEntity(std::string name, Entity &entity) {
+    renderList[name] = entity;
+}
+
+void Render::removeEntity(std::string name) {
+    auto entry = renderList.find(name);
+    if(entry != renderList.end())
+        renderList.erase(entry);
+    else
+        throw std::invalid_argument("Enttiy does not exist in render list");
 }

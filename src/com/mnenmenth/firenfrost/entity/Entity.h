@@ -18,15 +18,17 @@
 
 class Entity {
 public:
-    Entity(std::string imgLocation);
-    void setPos(Viewport::Point<double>);
-    void setPos(double x, double y);
-    void setX(double);
-    void setY(double);
-    Viewport::Point<double> getPos();
+    Entity(std::string imgLocation, sf::Rect<float> defaultHitbox);
+    void setPos(Viewport::Point<float>);
+    void setPos(float x, float y);
+    void setX(float);
+    void setY(float);
+    Viewport::Point<float> getPos();
 
-    void setRotation(double);
-    double getRotation();
+    void setRotation(float);
+    float getRotation();
+
+    const sf::Rect<float>& getDefaultHitbox();
 
     void addAnimation(AnimFrame::AnimType, std::vector<AnimFrame>);
     void addAnimation(AnimFrame::AnimType);
@@ -46,9 +48,10 @@ public:
 protected:
     sf::Sprite sprite;
     sf::Texture texture;
+    sf::Rect<float> defaultHitbox;
     sf::Clock timer;
-    Viewport::Point<double> position;
-    double rotation;
+    Viewport::Point<float> position;
+    float rotation;
     AnimFrame::AnimType currentAnimation;
     AnimFrame currentFrame;
     int currentAnimIndex;

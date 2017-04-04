@@ -17,7 +17,7 @@ public:
         T x;
         T y;
         Point<int> toPixel() { return Viewport::coordToPixel(*this); }
-        Point<double> toCoord() { return Viewport::pixelToCoord(*this); }
+        Point<float> toCoord() { return Viewport::pixelToCoord(*this); }
     };
 
     template <class T>
@@ -25,25 +25,25 @@ public:
         T width;
         T height;
         Dimension<int> toPixel() { return Viewport::coordToPixel(*this); }
-        Dimension<double> toCoord() { return Viewport::pixelToCoord(*this); }
+        Dimension<float> toCoord() { return Viewport::pixelToCoord(*this); }
     };
-    static void init(Dimension<int>, double ratio, int xUnits);
-    static void init(int width, int height, double ratio, int xUnits);
+    static void init(Dimension<int>, float ratio, int xUnits);
+    static void init(int width, int height, float ratio, int xUnits);
     static void setSize(Dimension<int>);
     static void setSize(int width, int height);
     static void setWidth(int);
     static void setHeight(int);
     static Dimension<int> getSize();
-    static void setAspectRatio(double);
-    static double getAspectRatio();
-    static Point<double> pixelToCoord(Point<int>);
-    static Dimension<double> pixelToCoord(Dimension<int>);
-    static sf::Rect<double> pixelToCoord(sf::IntRect);
-    static Point<int> coordToPixel(Point<double>);
-    static Dimension<int> coordToPixel(Dimension<double>);
-    static sf::IntRect coordToPixel(sf::Rect<double>);
+    static void setAspectRatio(float);
+    static float getAspectRatio();
+    static Point<float> pixelToCoord(const Point<int>&);
+    static Dimension<float> pixelToCoord(const Dimension<int>&);
+    static sf::Rect<float> pixelToCoord(const sf::IntRect&);
+    static Point<int> coordToPixel(const Point<float>&);
+    static Dimension<int> coordToPixel(const Dimension<float>&);
+    static sf::IntRect coordToPixel(const sf::Rect<float>&);
 private:
-    static double aspectRatio;
+    static float aspectRatio;
     static Dimension<int> units;
     static Dimension<int> size;
 };

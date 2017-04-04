@@ -6,11 +6,11 @@
   */
 #include "Entity.h"
 
-Entity::Entity(std::string imgLocation)
+Entity::Entity(std::string imgLocation, sf::Rect<float> defaultHitbox)
         : sprite(sf::Sprite()),
           texture(sf::Texture()),
           timer(sf::Clock()),
-          position(Viewport::Point<double>{0,0}),
+          position(Viewport::Point<float>{0,0}),
           rotation(0),
           currentFrame(0,0,0,0,0,0),
           currentAnimation(AnimFrame::AnimType::none),
@@ -18,35 +18,41 @@ Entity::Entity(std::string imgLocation)
           animations() {
     texture.loadFromFile(imgLocation);
     sprite.setTexture(texture);
+    sprite.setTextureRect(Viewport::coordToPixel(defaultHitbox));
+    this->defaultHitbox = defaultHitbox;
 }
 
-void Entity::setPos(Viewport::Point<double> pos) {
+void Entity::setPos(Viewport::Point<float> pos) {
     position = pos;
-    sprite.setPosition((float)position.x, (float)position.y);
+    sprite.setPosition(position.x, position.y);
 }
 
-void Entity::setPos(double x, double y) {
-    setPos(Viewport::Point<double>{x,y});
+void Entity::setPos(float x, float y) {
+    setPos(Viewport::Point<float>{x,y});
 }
 
-void Entity::setX(double x) {
+void Entity::setX(float x) {
     setPos(x, position.y);
 }
 
-void Entity::setY(double y) {
+void Entity::setY(float y) {
     setPos(position.x, y);
 }
 
-Viewport::Point<double> Entity::getPos() {
+Viewport::Point<float> Entity::getPos() {
     return position;
 }
 
-void Entity::setRotation(double rot) {
+void Entity::setRotation(float rot) {
     rotation = rot;
 }
 
-double Entity::getRotation() {
+float Entity::getRotation() {
     return rotation;
+}
+
+const sf::Rect<float>& Entity::getDefaultHitbox() {
+    return defaultHitbox;
 }
 
 void Entity::addAnimation(AnimFrame::AnimType type) {

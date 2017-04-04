@@ -7,17 +7,17 @@
 #include <cmath>
 #include "Viewport.h"
 
-double Viewport::aspectRatio = 0;
+float Viewport::aspectRatio = 0;
 Viewport::Dimension<int> Viewport::units = Viewport::Dimension<int>{0,0};
 Viewport::Dimension<int> Viewport::size = Viewport::Dimension<int>{0,0};
 
-void Viewport::init(Dimension<int> size, double ratio, int xUnits) {
+void Viewport::init(Dimension<int> size, float ratio, int xUnits) {
     units.width = xUnits;
     units.height = (int)ceil(xUnits/ratio);
     Viewport::size = size;
 }
 
-void Viewport::init(int width, int height, double ratio, int xUnits) {
+void Viewport::init(int width, int height, float ratio, int xUnits) {
     init(Dimension<int>{width, height}, ratio, xUnits);
 }
 
@@ -42,14 +42,14 @@ Viewport::Dimension<int> Viewport::getSize() {
     return size;
 }
 
-void Viewport::setAspectRatio(double ratio) {
+void Viewport::setAspectRatio(float ratio) {
     aspectRatio = ratio;
     units.height = (int)ceil(units.width/ratio);
 }
-double Viewport::getAspectRatio() { return aspectRatio; }
+float Viewport::getAspectRatio() { return aspectRatio; }
 
-Viewport::Point<double> Viewport::pixelToCoord(Point<int> pixel) {
-    Point<double> coord{};
+Viewport::Point<float> Viewport::pixelToCoord(const Point<int>& pixel) {
+    Point<float> coord{};
     if (pixel.x != 0)
         coord.x = (pixel.x / size.width) * units.width;
     if (pixel.y != 0)
@@ -57,8 +57,8 @@ Viewport::Point<double> Viewport::pixelToCoord(Point<int> pixel) {
     return coord;
 }
 
-Viewport::Dimension<double> Viewport::pixelToCoord(Dimension<int> pixel) {
-    Dimension<double> coord{};
+Viewport::Dimension<float> Viewport::pixelToCoord(const Dimension<int>& pixel) {
+    Dimension<float> coord{};
     if (pixel.width != 0)
         coord.width = (pixel.width / size.width) * units.width;
     if (pixel.height != 0)
@@ -66,13 +66,13 @@ Viewport::Dimension<double> Viewport::pixelToCoord(Dimension<int> pixel) {
     return coord;
 }
 
-sf::Rect<double> Viewport::pixelToCoord(sf::IntRect pixel) {
-    Point<double> corners = pixelToCoord(Point<int>{pixel.top, pixel.left});
-    Dimension<double> size = pixelToCoord(Dimension<int>{pixel.width, pixel.height});
-    return sf::Rect<double>(corners.x, corners.y, size.width, size.height);
+sf::Rect<float> Viewport::pixelToCoord(const sf::IntRect& pixel) {
+    Point<float> corners = pixelToCoord(Point<int>{pixel.top, pixel.left});
+    Dimension<float> size = pixelToCoord(Dimension<int>{pixel.width, pixel.height});
+    return sf::Rect<float>(corners.x, corners.y, size.width, size.height);
 }
 
-Viewport::Point<int> Viewport::coordToPixel(Point<double> coord) {
+Viewport::Point<int> Viewport::coordToPixel(const Point<float>& coord) {
     Point<int> pixel{};
     if (coord.x != 0)
         pixel.x = (int)ceil((coord.x*size.width)/units.width);
@@ -81,7 +81,7 @@ Viewport::Point<int> Viewport::coordToPixel(Point<double> coord) {
     return pixel;
 }
 
-Viewport::Dimension<int> Viewport::coordToPixel(Dimension<double> coord) {
+Viewport::Dimension<int> Viewport::coordToPixel(const Dimension<float>& coord) {
     Dimension<int> pixel{};
     if (coord.width != 0)
         pixel.width = (int)ceil((coord.width*size.width)/units.width);
@@ -90,8 +90,8 @@ Viewport::Dimension<int> Viewport::coordToPixel(Dimension<double> coord) {
     return pixel;
 }
 
-sf::IntRect Viewport::coordToPixel(sf::Rect<double> coord) {
-    Point<int> corners = coordToPixel(Point<double>{coord.top, coord.left});
-    Dimension<int> size = coordToPixel(Dimension<double>{coord.width, coord.height});
+sf::IntRect Viewport::coordToPixel(const sf::Rect<float>& coord) {
+    Point<int> corners = coordToPixel(Point<float>{coord.top, coord.left});
+    Dimension<int> size = coordToPixel(Dimension<float>{coord.width, coord.height});
     return sf::IntRect(corners.x, corners.y, size.width, size.height);
 }

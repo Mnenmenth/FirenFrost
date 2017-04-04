@@ -16,49 +16,49 @@
 class AnimFrame {
 public:
 
-    AnimFrame(Viewport::Dimension<double> size, sf::IntRect sheet_frameBounds);
-    AnimFrame(double width, double height, int sheet_frameWidth, int sheet_frameHeight, int sheet_frameTop, int sheet_frameLeft);
+    AnimFrame(Viewport::Dimension<float> size, sf::IntRect sheet_frameBounds);
+    AnimFrame(float width, float height, int sheet_frameWidth, int sheet_frameHeight, int sheet_frameTop, int sheet_frameLeft);
 
     enum AnimType { none, idle, movement, attack };
 
     void setFrameTime(float);
     float getFrameTime();
 
-    void setSize(double width, double height);
-    void setSize(Viewport::Dimension<double> size);
-    double getWidth();
-    void setWidth(double);
-    double getHeight();
-    void setHeight(double);
-    Viewport::Dimension<double> getSize();
+    void setSize(float width, float height);
+    void setSize(Viewport::Dimension<float> size);
+    float getWidth();
+    void setWidth(float);
+    float getHeight();
+    void setHeight(float);
+    Viewport::Dimension<float> getSize();
 
     void setScale(float w, float h);
     Viewport::Dimension<float> getScale();
 
-    void setRelativePos(Viewport::Point<double>);
-    void setRelativeX(double);
-    void setRelativeY(double);
-    Viewport::Point<double> getRelativePos();
+    void setRelativePos(Viewport::Point<float>);
+    void setRelativeX(float);
+    void setRelativeY(float);
+    Viewport::Point<float> getRelativePos();
 
-    void setRelativeRot(double);
-    double getRelativeRot();
+    void setRelativeRot(float);
+    float getRelativeRot();
 
     void setSheet_frameBounds(sf::IntRect);
     sf::IntRect getSheet_frameBounds();
 
-    void addHitbox(std::string, sf::Rect<double>);
+    void addHitbox(std::string, sf::Rect<float>);
     void removeHitbox(std::string);
-    sf::Rect<double>& getHitbox(std::string);
+    sf::Rect<float>& getHitbox(std::string);
 private:
     float frameTime;
     sf::IntRect sheet_frameBounds;
-    Viewport::Dimension<double> size;
-    Viewport::Point<double> relativePos;
-    double relativeRot;
+    Viewport::Dimension<float> size;
+    Viewport::Point<float> relativePos;
+    float relativeRot;
     Viewport::Dimension<float> scale;
-    sf::Rect<double> defaultHitbox;
+    sf::Rect<float> defaultHitbox;
     //Hitbox name matters: Ex, body will receive damage while weapon will deal damage
-    std::map<std::string, sf::Rect<double>> hitboxes;
+    std::map<std::string, sf::Rect<float>> hitboxes;
 };
 
 
