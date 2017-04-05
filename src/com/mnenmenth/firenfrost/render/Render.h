@@ -28,13 +28,13 @@ public:
     Viewport::Dimension<unsigned int> getWindowSize();
     sf::RenderWindow& getWindow();
 
-    void addEntity(std::string name, Entity&);
+    void addEntity(std::string name, Entity*);
     void removeEntity(std::string name);
 
 private:
     sf::RenderWindow window;
     sf::View mainView;
-    std::map<std::string, Entity&> renderList;
+    std::map<std::string, Entity*> renderList;
 };
 
 

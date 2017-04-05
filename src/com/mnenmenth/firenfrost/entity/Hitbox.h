@@ -12,12 +12,27 @@
 
 class Hitbox {
 public:
-    enum CollisionType { none, standard, take_damage, deal_damage, pickup, pickupee };
+    enum CollisionType {
+        TYPE_NONE,
+        TYPE_SOLID,
+        TYPE_MOVABLE,
+        TYPE_TAKE_DAMAGE,
+        TYPE_DEAL_DAMAGE,
+        TYPE_LOOT,
+        TYPE_CAN_PICKUP
+    };
+    enum CollisionAction {
+        ACTION_NONE,
+        ACTION_STOP,
+        ACTION_TAKE_DAMAGE,
+        ACTION_DEAL_DAMAGE,
+        ACTION_PICKUP
+    };
     Hitbox();
     void setCollistionType(CollisionType);
-    CollisionType getCollistionType();
+    Hitbox::CollisionType getCollistionType();
 
-    bool collides(Hitbox&, CollisionType*);
+    bool collides(Hitbox&, CollisionAction&);
 
     void setBounds(sf::FloatRect);
     sf::FloatRect getBounds();

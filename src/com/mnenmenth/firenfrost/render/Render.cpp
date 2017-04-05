@@ -30,12 +30,12 @@ void Render::renderLoop() {
         }
         window.clear(sf::Color::Black);
         if(!renderList.empty())
-            for (auto &pair : renderList) {
-                if(Viewport::coordToPixel(pair.second.getDefaultHitbox())
+            for (auto pair : renderList) {
+                if(Viewport::coordToPixel(pair.second->getDefaultHitbox())
                         .intersects(sf::IntRect(0, 0, (int)floorf(mainView.getSize().x),
                                                 (int)floorf(mainView.getSize().y)))) {
-                    pair.second.animCycle();
-                    window.draw(pair.second.getSprite());
+                    pair.second->animCycle();
+                    window.draw(pair.second->getSprite());
                 }
             }
 
@@ -73,7 +73,7 @@ sf::RenderWindow& Render::getWindow() {
     return window;
 }
 
-void Render::addEntity(std::string name, Entity &entity) {
+void Render::addEntity(std::string name, Entity *entity) {
     renderList[name] = entity;
 }
 
@@ -82,5 +82,5 @@ void Render::removeEntity(std::string name) {
     if(entry != renderList.end())
         renderList.erase(entry);
     else
-        throw std::invalid_argument("Enttiy does not exist in render list");
+        throw std::invalid_argument("Entiy does not exist in render list");
 }
