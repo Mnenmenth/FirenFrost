@@ -45,6 +45,7 @@ Viewport::Point<float> Entity::getPos() {
 
 void Entity::setRotation(float rot) {
     rotation = rot;
+    sprite.setRotation(rot);
 }
 
 float Entity::getRotation() {
@@ -125,6 +126,6 @@ void Entity::animCycle() {
             }
 }
 
-sf::Sprite& Entity::getSprite() {
+const sf::Sprite& Entity::getSprite() {
     return sprite;
 }

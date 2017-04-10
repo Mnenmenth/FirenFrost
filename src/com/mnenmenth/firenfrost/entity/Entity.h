@@ -43,7 +43,7 @@ public:
 
     void animCycle();
 
-    sf::Sprite& getSprite();
+    const sf::Sprite& getSprite();
 
 protected:
     sf::Sprite sprite;
