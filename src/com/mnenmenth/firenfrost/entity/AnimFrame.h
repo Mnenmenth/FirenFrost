@@ -12,6 +12,7 @@
 #include <string>
 #include <map>
 #include "../core/Viewport.h"
+#include "Hitbox.h"
 
 class AnimFrame {
 public:
@@ -56,9 +57,9 @@ private:
     Viewport::Point<float> relativePos;
     float relativeRot;
     Viewport::Dimension<float> scale;
-    sf::Rect<float> defaultHitbox;
+    Hitbox defaultHitbox;
     //Hitbox name matters: Ex, body will receive damage while weapon will deal damage
-    std::map<std::string, sf::Rect<float>> hitboxes;
+    std::map<std::string, Hitbox> hitboxes;
 };
 
 

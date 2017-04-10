@@ -37,6 +37,7 @@ public:
     void setBounds(sf::FloatRect);
     sf::FloatRect getBounds();
 private:
+    //Bounds has x & y, so no need for position
     sf::FloatRect bounds;
     CollisionType collisionType;
 };

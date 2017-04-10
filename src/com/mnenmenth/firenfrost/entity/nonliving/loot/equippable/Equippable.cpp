@@ -6,3 +6,10 @@
   */
 
 #include "Equippable.h"
+
+Equippable::Equippable(std::string imageLocation, sf::Rect<float> defaultHitbox)
+        : Loot(imageLocation, defaultHitbox),
+          associatedHitbox(Hitbox()) {
+
+}
+

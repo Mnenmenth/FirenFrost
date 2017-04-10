@@ -48,7 +48,7 @@ public:
 protected:
     sf::Sprite sprite;
     sf::Texture texture;
-    sf::Rect<float> defaultHitbox;
+    Hitbox defaultHitbox;
     sf::Clock timer;
     Viewport::Point<float> position;
     float rotation;

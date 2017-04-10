@@ -9,9 +9,18 @@
 #define FIRENFROST_EQUIPPABLE_H
 
 #include "../Loot.h"
+#include "../../../Hitbox.h"
 
 class Equippable : Loot {
+public:
+    Equippable(std::string imageLocation, sf::Rect<float> defaultHitbox);
 
+    void setAssociatedHitbox(Hitbox&);
+    const Hitbox& getAssociatedHitbox();
+
+protected:
+    Loot::State state;
+    Hitbox& associatedHitbox;
 };
 
 
