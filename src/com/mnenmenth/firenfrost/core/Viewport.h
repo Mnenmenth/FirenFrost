@@ -38,10 +38,10 @@ public:
     static float getAspectRatio();
     static Point<float> pixelToCoord(const Point<int>&);
     static Dimension<float> pixelToCoord(const Dimension<int>&);
-    static sf::Rect<float> pixelToCoord(const sf::IntRect&);
+    static sf::FloatRect pixelToCoord(const sf::IntRect&);
     static Point<int> coordToPixel(const Point<float>&);
     static Dimension<int> coordToPixel(const Dimension<float>&);
-    static sf::IntRect coordToPixel(const sf::Rect<float>&);
+    static sf::IntRect coordToPixel(const sf::FloatRect&);
 private:
     static float aspectRatio;
     static Dimension<int> units;

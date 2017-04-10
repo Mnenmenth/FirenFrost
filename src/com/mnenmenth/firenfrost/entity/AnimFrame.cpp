@@ -7,9 +7,9 @@
 #include "AnimFrame.h"
 #include <stdexcept>
 
-AnimFrame::AnimFrame(Viewport::Dimension<float> size, sf::IntRect sheet_rect) {
+AnimFrame::AnimFrame(Viewport::Dimension<float> size, sf::IntRect sheet_rect) : defaultHitbox(Hitbox()) {
     setSize(size);
-    defaultHitbox = Viewport::pixelToCoord(sheet_rect);
+    defaultHitbox.setBounds(Viewport::pixelToCoord(sheet_rect));
 }
 
 AnimFrame::AnimFrame(float width, float height, int sheet_frameWidth, int sheet_frameHeight, int sheet_frameTop, int sheet_frameLeft) {
@@ -95,7 +95,7 @@ sf::IntRect AnimFrame::getSheet_frameBounds() {
     return sheet_frameBounds;
 }
 
-void AnimFrame::addHitbox(std::string name, sf::Rect<float> hitbox) {
+void AnimFrame::addHitbox(std::string name, Hitbox hitbox) {
     hitboxes[name] = hitbox;
 }
 
@@ -107,7 +107,7 @@ void AnimFrame::removeHitbox(std::string name) {
         throw std::invalid_argument(name + " is not a hitbox");
 }
 
-sf::Rect<float>& AnimFrame::getHitbox(std::string name) {
+Hitbox& AnimFrame::getHitbox(std::string name) {
     auto entry = hitboxes.find(name);
     if (entry != hitboxes.end())
         return hitboxes[name];

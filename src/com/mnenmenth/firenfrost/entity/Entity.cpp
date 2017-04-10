@@ -6,7 +6,7 @@
   */
 #include "Entity.h"
 
-Entity::Entity(std::string imgLocation, sf::Rect<float> defaultHitbox)
+Entity::Entity(std::string imgLocation, Hitbox defaultHitbox)
         : sprite(sf::Sprite()),
           texture(sf::Texture()),
           timer(sf::Clock()),
@@ -18,7 +18,7 @@ Entity::Entity(std::string imgLocation, sf::Rect<float> defaultHitbox)
           animations() {
     texture.loadFromFile(imgLocation);
     sprite.setTexture(texture);
-    sprite.setTextureRect(Viewport::coordToPixel(defaultHitbox));
+    sprite.setTextureRect(Viewport::coordToPixel(defaultHitbox.getBounds()));
     this->defaultHitbox = defaultHitbox;
 }
 
@@ -53,7 +53,7 @@ float Entity::getRotation() {
     return rotation;
 }
 
-const sf::Rect<float>& Entity::getDefaultHitbox() {
+const Hitbox& Entity::getDefaultHitbox() const {
     return defaultHitbox;
 }
 
@@ -127,6 +127,6 @@ void Entity::animCycle() {
             }
 }
 
-const sf::Sprite& Entity::getSprite() {
+const sf::Sprite& Entity::getSprite() const {
     return sprite;
 }

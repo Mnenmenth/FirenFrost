@@ -7,7 +7,7 @@
 
 #include "Loot.h"
 
-Loot::Loot(std::string imgLocation, sf::Rect<float> defaultHitbox) : Entity(imgLocation, defaultHitbox) {
+Loot::Loot(std::string imgLocation, Hitbox defaultHitbox) : Entity(imgLocation, defaultHitbox) {
 
 }
 

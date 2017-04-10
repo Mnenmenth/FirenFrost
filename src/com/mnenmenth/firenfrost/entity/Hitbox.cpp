@@ -37,6 +37,6 @@ void Hitbox::setBounds(sf::FloatRect rect) {
     bounds = rect;
 }
 
-sf::FloatRect Hitbox::getBounds() {
+const sf::FloatRect& Hitbox::getBounds() const {
     return bounds;
 }

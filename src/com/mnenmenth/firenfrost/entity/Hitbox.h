@@ -35,7 +35,7 @@ public:
     bool collides(Hitbox&, CollisionAction&);
 
     void setBounds(sf::FloatRect);
-    sf::FloatRect getBounds();
+    const sf::FloatRect& getBounds() const;
 private:
     //Bounds has x & y, so no need for position
     sf::FloatRect bounds;

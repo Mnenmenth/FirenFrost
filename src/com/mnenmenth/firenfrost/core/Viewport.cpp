@@ -66,10 +66,10 @@ Viewport::Dimension<float> Viewport::pixelToCoord(const Dimension<int>& pixel) {
     return coord;
 }
 
-sf::Rect<float> Viewport::pixelToCoord(const sf::IntRect& pixel) {
+sf::FloatRect Viewport::pixelToCoord(const sf::IntRect& pixel) {
     Point<float> corners = pixelToCoord(Point<int>{pixel.top, pixel.left});
     Dimension<float> size = pixelToCoord(Dimension<int>{pixel.width, pixel.height});
-    return sf::Rect<float>(corners.x, corners.y, size.width, size.height);
+    return sf::FloatRect(corners.x, corners.y, size.width, size.height);
 }
 
 Viewport::Point<int> Viewport::coordToPixel(const Point<float>& coord) {
@@ -90,7 +90,7 @@ Viewport::Dimension<int> Viewport::coordToPixel(const Dimension<float>& coord) {
     return pixel;
 }
 
-sf::IntRect Viewport::coordToPixel(const sf::Rect<float>& coord) {
+sf::IntRect Viewport::coordToPixel(const sf::FloatRect& coord) {
     Point<int> corners = coordToPixel(Point<float>{coord.top, coord.left});
     Dimension<int> size = coordToPixel(Dimension<float>{coord.width, coord.height});
     return sf::IntRect(corners.x, corners.y, size.width, size.height);

@@ -14,7 +14,7 @@ class Loot : Entity {
 public:
     enum State { STATE_IN_INVENTORY, STATE_DROPPED, STATE_EQUIPPED };
 
-    Loot(std::string imgLocation, sf::Rect<float> defaultHitbox);
+    Loot(std::string imgLocation, Hitbox defaultHitbox);
 
     void setState(Loot::State);
     Loot::State getState();

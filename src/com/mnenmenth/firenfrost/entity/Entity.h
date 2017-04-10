@@ -18,7 +18,7 @@
 
 class Entity {
 public:
-    Entity(std::string imgLocation, sf::Rect<float> defaultHitbox);
+    Entity(std::string imgLocation, Hitbox defaultHitbox);
     void setPos(Viewport::Point<float>);
     void setPos(float x, float y);
     void setX(float);
@@ -28,7 +28,7 @@ public:
     void setRotation(float);
     float getRotation();
 
-    const sf::Rect<float>& getDefaultHitbox();
+    const Hitbox& getDefaultHitbox() const;
 
     void addAnimation(AnimFrame::AnimType, std::vector<AnimFrame>);
     void addAnimation(AnimFrame::AnimType);
@@ -43,7 +43,7 @@ public:
 
     void animCycle();
 
-    const sf::Sprite& getSprite();
+    const sf::Sprite& getSprite() const;
 
 protected:
     sf::Sprite sprite;

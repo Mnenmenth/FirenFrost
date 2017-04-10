@@ -31,7 +31,7 @@ void Render::renderLoop() {
         window.clear(sf::Color::Black);
         if(!renderList.empty())
             for (auto pair : renderList) {
-                if(Viewport::coordToPixel(pair.second->getDefaultHitbox())
+                if(Viewport::coordToPixel(pair.second->getDefaultHitbox().getBounds())
                         .intersects(sf::IntRect(0, 0, (int)floorf(mainView.getSize().x),
                                                 (int)floorf(mainView.getSize().y)))) {
                     pair.second->animCycle();

@@ -13,14 +13,14 @@
 
 class Equippable : Loot {
 public:
-    Equippable(std::string imageLocation, sf::Rect<float> defaultHitbox);
-
+    Equippable(std::string imageLocation, Hitbox defaultHitbox);
+    ~Equippable();
     void setAssociatedHitbox(Hitbox&);
-    const Hitbox& getAssociatedHitbox();
+    const Hitbox* getAssociatedHitbox();
 
 protected:
     Loot::State state;
-    Hitbox& associatedHitbox;
+    Hitbox* associatedHitbox;
 };
 
 

@@ -47,9 +47,9 @@ public:
     void setSheet_frameBounds(sf::IntRect);
     sf::IntRect getSheet_frameBounds();
 
-    void addHitbox(std::string, sf::Rect<float>);
+    void addHitbox(std::string, Hitbox);
     void removeHitbox(std::string);
-    sf::Rect<float>& getHitbox(std::string);
+    Hitbox& getHitbox(std::string);
 private:
     float frameTime;
     sf::IntRect sheet_frameBounds;
