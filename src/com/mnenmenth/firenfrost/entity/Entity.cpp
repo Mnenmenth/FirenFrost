@@ -24,7 +24,8 @@ Entity::Entity(std::string imgLocation, sf::Rect<float> defaultHitbox)
 
 void Entity::setPos(Viewport::Point<float> pos) {
     position = pos;
-    sprite.setPosition(position.x, position.y);
+    auto pixels = Viewport::coordToPixel(pos);
+    sprite.setPosition(pixels.x, pixels.y);
 }
 
 void Entity::setPos(float x, float y) {

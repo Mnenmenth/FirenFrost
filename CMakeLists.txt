@@ -9,6 +9,12 @@ set(SOURCE_DIR src/com/mnenmenth/firenfrost)
 
 set(CORE_DIR ${SOURCE_DIR}/core)
 set(ENTITY_DIR ${SOURCE_DIR}/entity)
+set(L_ENTITY_DIR ${ENTITY_DIR}/living) #Living Entity
+set(NL_ENTITY_DIR ${ENTITY_DIR}/nonliving) #Non Living Entity
+set(LOOT_DIR ${NL_ENTITY_DIR}/loot)
+set(EQUIPPABLE_DIR ${LOOT_DIR}/equippable)
+set(ARMOUR_DIR ${EQUIPPABLE_DIR}/armour)
+set(WEAPON_DIR ${EQUIPPABLE_DIR}/weapon)
 set(RENDER_DIR ${SOURCE_DIR}/render)
 
 set(CORE
@@ -16,6 +22,39 @@ set(CORE
         ${CORE_DIR}/Viewport.h
         ${CORE_DIR}/Viewport.cpp
         )
+
+set(L_ENTITY
+        ${L_ENTITY_DIR}/LivingEntity.h
+        ${L_ENTITY_DIR}/LivingEntity.cpp
+        )
+
+set(ARMOUR
+        ${ARMOUR_DIR}/Armour.h
+        ${ARMOUR_DIR}/Armour.cpp
+        )
+
+set(WEAPON
+        ${WEAPON_DIR}/Weapon.h
+        ${WEAPON_DIR}/Weapon.cpp
+        )
+
+set(EQUIPPABLE
+        ${EQUIPPABLE_DIR}/Equippable.h
+        ${EQUIPPABLE_DIR}/Equippable.cpp
+        ${ARMOUR}
+        ${WEAPON}
+        )
+
+set(LOOT
+        ${LOOT_DIR}/Loot.h
+        ${LOOT_DIR}/Loot.cpp
+        ${EQUIPPABLE}
+        )
+
+set(NL_ENTITY
+        ${LOOT}
+        )
+
 set(ENTITY
         ${ENTITY_DIR}/Entity.h
         ${ENTITY_DIR}/Entity.cpp
@@ -23,6 +62,9 @@ set(ENTITY
         ${ENTITY_DIR}/AnimFrame.cpp
         ${ENTITY_DIR}/Hitbox.h
         ${ENTITY_DIR}/Hitbox.cpp
+
+        ${L_ENTITY}
+        ${NL_ENTITY}
         )
 
 set(RENDER
