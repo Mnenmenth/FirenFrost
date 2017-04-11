@@ -38,7 +38,6 @@ void Render::renderLoop() {
                     window.draw(pair.second->getSprite());
                 }
             }
-
         window.display();
     }
 

@@ -9,8 +9,8 @@
 #define FIRENFROST_WEAPON_H
 #include "../Equippable.h"
 
-class Weapon : Equippable {
-    enum WeaponTypes { WEAPON_CC, WEAPON_RANGED };
+class Weapon : public Equippable {
+    enum WeaponType { WEAPON_CC, WEAPON_RANGED };
     Weapon();
 };
 

@@ -17,8 +17,8 @@
 class AnimFrame {
 public:
 
-    AnimFrame(Viewport::Dimension<float> size, sf::IntRect sheet_frameBounds);
-    AnimFrame(float width, float height, int sheet_frameWidth, int sheet_frameHeight, int sheet_frameTop, int sheet_frameLeft);
+    AnimFrame(Viewport::Dimension<float> size, sf::IntRect textureBounds);
+    AnimFrame(float width, float height, int textureWidth, int textureHeight, int textureTop, int textureLeft);
 
     enum AnimType { none, idle, movement, attack };
 
@@ -52,7 +52,7 @@ public:
     Hitbox& getHitbox(std::string);
 private:
     float frameTime;
-    sf::IntRect sheet_frameBounds;
+    sf::IntRect textureRect;
     Viewport::Dimension<float> size;
     Viewport::Point<float> relativePos;
     float relativeRot;

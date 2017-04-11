@@ -15,6 +15,6 @@ void Loot::setState(Loot::State state) {
     this->state = state;
 }
 
-Loot::State Loot::getState() {
+Loot::State const Loot::getState() const {
     return state;
 }

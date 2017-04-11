@@ -11,12 +11,14 @@
 #include "../Loot.h"
 #include "../../../Hitbox.h"
 
-class Equippable : Loot {
+class Equippable : public Loot {
 public:
-    Equippable(std::string imageLocation, Hitbox defaultHitbox);
+    Equippable(std::string imageLocation, Hitbox defaultHitbox, Loot::State);
     ~Equippable();
     void setAssociatedHitbox(Hitbox&);
-    const Hitbox* getAssociatedHitbox();
+    Hitbox* const getAssociatedHitbox() const;
+
+    bool const isEquipped() const;
 
 protected:
     Loot::State state;

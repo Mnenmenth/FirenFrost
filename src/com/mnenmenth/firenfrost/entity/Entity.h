@@ -41,6 +41,8 @@ public:
     void setCurrentAnimtion(AnimFrame::AnimType);
     AnimFrame::AnimType getCurrentAnimation();
 
+    AnimFrame& getCurrentFrame();
+
     void animCycle();
 
     const sf::Sprite& getSprite() const;

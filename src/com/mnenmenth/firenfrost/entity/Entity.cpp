@@ -107,6 +107,10 @@ AnimFrame::AnimType Entity::getCurrentAnimation() {
     return currentAnimation;
 }
 
+AnimFrame& Entity::getCurrentFrame() {
+    return currentFrame;
+}
+
 void Entity::animCycle() {
 
     if(animations.size() >= 1)

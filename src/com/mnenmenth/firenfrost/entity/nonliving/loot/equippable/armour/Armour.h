@@ -10,7 +10,7 @@
 
 #include "../Equippable.h"
 
-class Armour : Equippable {
+class Armour : public Equippable {
     enum ArmourType { ARMOUR_HELMET, ARMOUR_CHEST, ARMOUR_PANTS };
     Armour();
 

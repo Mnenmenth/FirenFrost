@@ -12,8 +12,8 @@ AnimFrame::AnimFrame(Viewport::Dimension<float> size, sf::IntRect sheet_rect) : 
     defaultHitbox.setBounds(Viewport::pixelToCoord(sheet_rect));
 }
 
-AnimFrame::AnimFrame(float width, float height, int sheet_frameWidth, int sheet_frameHeight, int sheet_frameTop, int sheet_frameLeft) {
-    AnimFrame(Viewport::Dimension<float>{width, height}, sf::IntRect(sheet_frameWidth, sheet_frameHeight, sheet_frameTop, sheet_frameLeft));
+AnimFrame::AnimFrame(float width, float height, int textureWidth, int textureHeight, int textureTop, int textureLeft) {
+    AnimFrame(Viewport::Dimension<float>{width, height}, sf::IntRect(textureWidth, textureHeight, textureTop, textureLeft));
 }
 
 void AnimFrame::setFrameTime(float time) {
@@ -30,7 +30,7 @@ void AnimFrame::setSize(float width, float height) {
 
 void AnimFrame::setSize(Viewport::Dimension<float> size) {
     this->size = size;
-    setScale((float)(this->size.toPixel().width/sheet_frameBounds.width), (float)(this->size.toPixel().height/sheet_frameBounds.height));
+    setScale((float)(this->size.toPixel().width/textureRect.width), (float)(this->size.toPixel().height/textureRect.height));
 }
 
 float AnimFrame::getWidth() {
@@ -39,7 +39,7 @@ float AnimFrame::getWidth() {
 
 void AnimFrame::setWidth(float width) {
     size.width = width;
-    setScale((float)(size.toPixel().width/sheet_frameBounds.width), 1.0f);
+    setScale((float)(size.toPixel().width/textureRect.width), 1.0f);
 }
 
 float AnimFrame::getHeight() {
@@ -48,7 +48,7 @@ float AnimFrame::getHeight() {
 
 void AnimFrame::setHeight(float height) {
     size.height = height;
-    setScale(1.0f, (float)(size.toPixel().height/sheet_frameBounds.height));
+    setScale(1.0f, (float)(size.toPixel().height/textureRect.height));
 }
 
 Viewport::Dimension<float> AnimFrame::getSize() {
@@ -88,11 +88,11 @@ Viewport::Dimension<float> AnimFrame::getScale() {
 }
 
 void AnimFrame::setSheet_frameBounds(sf::IntRect bounds) {
-    sheet_frameBounds = bounds;
+    textureRect = bounds;
 }
 
 sf::IntRect AnimFrame::getSheet_frameBounds() {
-    return sheet_frameBounds;
+    return textureRect;
 }
 
 void AnimFrame::addHitbox(std::string name, Hitbox hitbox) {

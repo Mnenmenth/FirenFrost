@@ -8,7 +8,7 @@
 #include "Equippable.h"
 
 
-Equippable::Equippable(std::string imageLocation, Hitbox defaultHitbox)
+Equippable::Equippable(std::string imageLocation, Hitbox defaultHitbox, Loot::State state = Loot::State::STATE_NONE)
         : Loot(imageLocation, defaultHitbox),
           associatedHitbox(nullptr) {
 }
@@ -22,6 +22,10 @@ void Equippable::setAssociatedHitbox(Hitbox& hitbox) {
     *associatedHitbox = hitbox;
 }
 
-const Hitbox* Equippable::getAssociatedHitbox() {
+Hitbox* const Equippable::getAssociatedHitbox() const {
     return associatedHitbox;
+}
+
+bool const Equippable::isEquipped() const {
+    return state == Loot::State::STATE_EQUIPPED;
 }

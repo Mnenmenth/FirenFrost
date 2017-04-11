@@ -17,7 +17,7 @@ class LivingEntity : Entity {
 public:
     LivingEntity(int health);
 
-    const Armour& getArmour(std::string hitbox);
+    Armour& getArmour(std::string hitbox);
     void addArmour(std::string hitbox, Armour&);
     void removeArmour(std::string hitbox);
 
